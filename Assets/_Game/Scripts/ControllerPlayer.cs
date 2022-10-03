@@ -2,33 +2,57 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class ControllerPlayer : MonoBehaviour
 {
     [SerializeField] float speed;
+    [SerializeField] GameObject BrickPrefab;
+    [SerializeField] GameObject PlayerModel;
     bool started;
     EDirection eDirection;
-    Vector3 firstPos;
-    Vector3 secondPos;
+    Vector3 firstMousePos;
+    Vector3 secondMousePos;
+    Vector3 fisrtBrick;
+    Vector3 lastBrick;
     Rigidbody rb;
+    Vector3 prePos;
+    int numberOfBrick;
+    float Thickness;
+
+    List<GameObject> listOfBricks;
     private void Awake() {
         rb = GetComponent<Rigidbody>();
+        Thickness = BrickPrefab.transform.localScale.y;
+        fisrtBrick = transform.position;
+        
     }
+    
     // Start is called before the first frame update
     void Start()
     {
-        
+      prePos = transform.position;
+      listOfBricks= null;
+      listOfBricks = new List<GameObject>();
+      
     }
 
     // Update is called once per frame
     void Update()
     {
         Control();
-        Debug.Log("Direction: " + GetDirection());   
+        MoveBrick();
+        Debug.Log("Direction: " + GetDirection());
+        // AddBrick();
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            AddBrick();
+        }
     }
 
     void OnInit()
     {
         started = false;
+        
     }
     void Control()
     {
@@ -52,9 +76,35 @@ public class ControllerPlayer : MonoBehaviour
        }
     }
     void AddBrick()
-    {
+    {   GameObject newBrick;
+        newBrick = Instantiate(BrickPrefab, transform.position + Vector3.up*listOfBricks.Count*0.3f, Quaternion.Euler(90, 0, -180));
+        listOfBricks.Add(newBrick);  
+        if(listOfBricks.Count>0)
+        {
+            // PlayerModel.transform.position += Vector3.up*0.1f;
+            transform.position += Vector3.up*0.1f;
+            // transform.position = listOfBricks[listOfBricks.Count-1].transform.position;
+        }
+    //  foreach( GameObject brick in listOfBricks){
+    //         Vector3 pos = brick.transform.position;
+    //         pos.x = transform.position.x;
+    //         pos.z = transform.position.z;
+    //         brick.transform.position = pos;
         
+    //     }
     }
+
+    void MoveBrick()
+    {   
+        Debug.Log("Number Bricks: "+ listOfBricks.Count);
+        foreach( GameObject brick in listOfBricks){
+            Vector3 pos = brick.transform.position;
+            pos.x = transform.position.x;
+            pos.z = transform.position.z;
+            brick.transform.position = pos;
+     }
+    }
+
     void RemoveBrick()
     {
 
@@ -94,15 +144,15 @@ public class ControllerPlayer : MonoBehaviour
     {
         if(Input.GetMouseButtonDown(0))
         {
-            firstPos = Input.mousePosition;
+            firstMousePos = Input.mousePosition;
             // Debug.Log("fisrtPos"+ firstPos);
         }
         if(Input.GetMouseButtonUp(0))
         {
-            secondPos = Input.mousePosition;
+            secondMousePos = Input.mousePosition;
             // Debug.Log("secondPos"+ secondPos);
         }
-        Vector3 targetDir = secondPos - firstPos;
+        Vector3 targetDir = secondMousePos - firstMousePos;
         float angle = Vector3.SignedAngle(targetDir, Vector3.right, -Vector3.forward);
         // Debug.Log("angle: "+ angle);
         return angle;
