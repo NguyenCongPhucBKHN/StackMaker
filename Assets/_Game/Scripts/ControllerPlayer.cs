@@ -9,6 +9,7 @@ public class ControllerPlayer : MonoBehaviour
     [SerializeField] GameObject BrickPrefab;
     [SerializeField] GameObject PlayerModel;
     [SerializeField] GameObject ListBrick;
+    Vector3 beginPos;
     bool started;
     EDirection eDirection;
     Vector3 firstMousePos;
@@ -22,13 +23,15 @@ public class ControllerPlayer : MonoBehaviour
     Rigidbody rb;
 
     Vector3 prePos;
+    int brickLayer ;
     int numberOfBrick;
     float Thickness;
 
     List<GameObject> listOfBricks;
     private void Awake() {
         rb = GetComponent<Rigidbody>();
-        Thickness = BrickPrefab.transform.localScale.y;
+        brickLayer = LayerMask.GetMask("BrickLayer");
+        beginPos = PlayerModel.transform.position;
         
         
     }
@@ -41,7 +44,6 @@ public class ControllerPlayer : MonoBehaviour
       listOfBricks= null;
       listOfBricks = new List<GameObject>();
       fisrtBrick = transform.position;
-      Debug.Log("fisrtBrick: "+ fisrtBrick);
       PlayerPos = PlayerModel.transform.position;
       
     }
@@ -51,6 +53,12 @@ public class ControllerPlayer : MonoBehaviour
     {
         Control();
         MoveBrick();
+        
+
+        // if(isBrick())
+        // {
+        //     AddBrick();
+        // }
         
         
         if(Input.GetKeyDown(KeyCode.Space))
@@ -137,7 +145,7 @@ public class ControllerPlayer : MonoBehaviour
     
     void MoveBrick()
     {   
-        // Debug.Log("Number Bricks: "+ listOfBricks.Count);
+        
         foreach( GameObject brick in listOfBricks){
             Vector3 pos = brick.transform.position;
             pos.x = transform.position.x;
@@ -154,6 +162,7 @@ public class ControllerPlayer : MonoBehaviour
         listOfBricks.Clear();
         PlayerPos.x= PlayerModel.transform.position.x;
         PlayerPos.z= PlayerModel.transform.position.z;
+        PlayerPos.y= 3;
         PlayerModel.transform.position= PlayerPos;
 
     }
@@ -189,21 +198,40 @@ public class ControllerPlayer : MonoBehaviour
         if(Input.GetMouseButtonDown(0))
         {
             firstMousePos = Input.mousePosition;
-            // Debug.Log("fisrtPos"+ firstPos);
         }
         if(Input.GetMouseButtonUp(0))
         {
             secondMousePos = Input.mousePosition;
-            // Debug.Log("secondPos"+ secondPos);
         }
         Vector3 targetDir = secondMousePos - firstMousePos;
         float angle = Vector3.SignedAngle(targetDir, Vector3.right, -Vector3.forward);
-        // Debug.Log("angle: "+ angle);
         return angle;
     }
 
 
-    
+    Vector3 GetPosition()
+    {
+        Vector3 transforms= new Vector3(0, 0, 0);
+
+        return transforms;
+    }
+
+    bool isBrick()
+    {
+        RaycastHit hit;
+        if(Physics.Raycast(transform.position, Vector3.down, out hit, 25f,brickLayer))
+        {
+            hit.collider.gameObject.SetActive(false);
+            return true;
+        }   
+        return false;
+        
+    }
+
+    void SetDeActivate(GameObject go)
+    {
+        go.SetActive(false);
+    }
 
     
 }

@@ -5,14 +5,14 @@ using UnityEngine;
 public class CameraFollow : MonoBehaviour
 {   
     public GameObject player;
-    Vector3 offset;
+    public Vector3 offset; //offset = (0, 55, -55)
     public float lerpRate;
     bool gameOver;
+    
 
     // Start is called before the first frame update
     void Start()
     {
-        offset = player.transform.position - transform.position;
         gameOver = false;
     }
 
@@ -28,8 +28,8 @@ public class CameraFollow : MonoBehaviour
     void Follow()
     {
         Vector3 pos = transform.position;
-        Vector3 targetPos = player.transform.position - offset;
-        Vector3.Lerp(pos, targetPos, lerpRate*Time.deltaTime);
+        Vector3 targetPos = player.transform.position + offset;
+        pos = Vector3.Lerp(pos, targetPos, lerpRate*Time.deltaTime);
         transform.position = pos;
     }
 }
