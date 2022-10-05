@@ -9,6 +9,8 @@ public class ControllerPlayer : MonoBehaviour
     [SerializeField] GameObject BrickPrefab;
     [SerializeField] GameObject PlayerModel;
     [SerializeField] GameObject ListBrick;
+    [SerializeField] UnBrickController UnBrick;
+    [SerializeField] Material UnBrickmaterial;
     Vector3 beginPos;
     bool started;
     EDirection eDirection;
@@ -24,6 +26,7 @@ public class ControllerPlayer : MonoBehaviour
 
     Vector3 prePos;
     int brickLayer ;
+    int unBrickLayer;
     int numberOfBrick;
     float Thickness;
 
@@ -31,6 +34,7 @@ public class ControllerPlayer : MonoBehaviour
     private void Awake() {
         rb = GetComponent<Rigidbody>();
         brickLayer = LayerMask.GetMask("BrickLayer");
+        unBrickLayer = LayerMask.GetMask("UnBrickLayer");
         beginPos = PlayerModel.transform.position;
         
         
@@ -55,17 +59,24 @@ public class ControllerPlayer : MonoBehaviour
         MoveBrick();
         
 
-        // if(isBrick())
-        // {
-        //     AddBrick();
-        // }
-        
-        
-        if(Input.GetKeyDown(KeyCode.Space))
+        if(isBrick())
         {
-            
             AddBrick();
         }
+        Debug.Log("isUnBrick(): " + isUnBrick());
+        if(isUnBrick())
+        {
+            RemoveBrick();
+            // UnBrick.ChangeColor();
+            // UnBrick.ChangPosition();
+
+        }
+        
+        // if(Input.GetKeyDown(KeyCode.Space))
+        // {
+            
+        //     AddBrick();
+        // }
         if(Input.GetKeyDown(KeyCode.R))
         {
             if(listOfBricks.Count>0)
@@ -226,6 +237,19 @@ public class ControllerPlayer : MonoBehaviour
         }   
         return false;
         
+    }
+
+    bool isUnBrick()
+    {
+       RaycastHit hit;
+        if(Physics.Raycast(transform.position, Vector3.down, out hit, 50f,unBrickLayer))
+        {
+            Renderer brickRender = hit.collider.gameObject.GetComponent<Renderer>();
+            brickRender.material= UnBrickmaterial;
+            UnBrickmaterial.SetColor("_Color", Color.yellow);
+            return true;
+        }   
+        return false; 
     }
 
     void SetDeActivate(GameObject go)
