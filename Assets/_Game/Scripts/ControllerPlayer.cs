@@ -36,6 +36,7 @@ public class ControllerPlayer : MonoBehaviour
     int wallLayer;
     int numberOfBrick;
     bool isStart;
+    bool isMouse => Input.GetMouseButtonUp(0);
 
     List<GameObject> listOfBricks;
     private void Awake() {
@@ -84,7 +85,7 @@ public class ControllerPlayer : MonoBehaviour
         {
             Debug.Log("isEnd: "+ isEnd());
         }
-        if(Input.GetMouseButtonUp(0))
+        if(GameManager.Instance.IsState(EGameState.GamePlay)&&isMouse)
         {
             target = GetPostion();
             

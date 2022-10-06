@@ -8,20 +8,26 @@ public class EndGame : MonoBehaviour
     public Transform PlayerTransform;
     public GameObject win;
     public ParticleSystem[] particleSystems;
+    bool isWin = false;
+
     
     // Update is called once per frame
     void Update()
     {
-        if(isEnd())
+        
+        if(isWin)
         {
             EndAnimation();
+            ChangeLevel();
         }
     }
-    bool isEnd()
-    {   
-        Vector3 comparePos = EndTransform.position;
-        return (Mathf.Abs(comparePos.x - PlayerTransform.position.x)<0.5 && Mathf.Abs(comparePos.z - PlayerTransform.position.z)<0.5);
-    }   
+    void OnTriggerEnter(Collider other) {
+        if(other.CompareTag("Player"))
+        {
+            isWin= true;
+            Debug.Log("isWin: "+ isWin);
+        }
+    }
 
     void EndAnimation()
     {
@@ -39,6 +45,11 @@ public class EndGame : MonoBehaviour
             particle.Pause();
         
         }
+    }
+
+    void ChangeLevel()
+    {
+        LevelManager.Instance.OnFinsih();
     }
 
 

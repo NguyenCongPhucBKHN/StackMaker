@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameManager : Singleton<GameManager>
 {
     private EGameState gameState;
-    private void ChangeState(EGameState gameState)
+    public void ChangeState(EGameState gameState)
     {
         this.gameState = gameState;
     }
