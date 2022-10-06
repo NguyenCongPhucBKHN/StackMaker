@@ -22,7 +22,7 @@ public class ControllerPlayer : MonoBehaviour
     Rigidbody rb;
     RaycastHit unBrickHit;
     RaycastHit wallHit;
-
+    Vector3 target;
     Vector3 prePos;
     float angle;
     [SerializeField] Transform startBrick;
@@ -56,6 +56,7 @@ public class ControllerPlayer : MonoBehaviour
       PlayerPos = PlayerModel.transform.position;
       isMove =false;
       isStart= false;
+      target = transform.position;
       
     }
 
@@ -66,7 +67,7 @@ public class ControllerPlayer : MonoBehaviour
     
     {
     
-        Vector3 target  = transform.position;
+        
         MoveBrick();
         checkMove();
     //    if(isMove)
@@ -77,6 +78,7 @@ public class ControllerPlayer : MonoBehaviour
         if(Input.GetMouseButtonUp(0))
         {
             target = GetPostion();
+            
         }
 
         MoveToPoint1(target);
@@ -265,7 +267,7 @@ public class ControllerPlayer : MonoBehaviour
         {
             return EDirection.Left;
         }
-        // return EDirection.None;
+    
 
         else
         {
@@ -360,12 +362,7 @@ public class ControllerPlayer : MonoBehaviour
     }
 
     void MoveToPoint1(Vector3 target)
-    {
-        // isMove= false;
-        // float distance = Vector3.Distance(transform.position, GetPostion());
-        
-
-            
+    {    
         transform.position = Vector3.MoveTowards(transform.position, target, 1f);
     
         // else
