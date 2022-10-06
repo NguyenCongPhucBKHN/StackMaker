@@ -5,22 +5,18 @@ using UnityEngine;
 
 public class ControllerPlayer : MonoBehaviour
 {
-    [SerializeField] float speed;
+    [SerializeField] float speed=5;
     [SerializeField] GameObject BrickPrefab;
     [SerializeField] GameObject PlayerModel;
     [SerializeField] GameObject ListBrick;
     // [SerializeField] UnBrickController UnBrick;
     [SerializeField] Material UnBrickmaterial;
-    Vector3 beginPos;
-    Vector3 direction;
-    bool started;
-    EDirection eDirection;
+    [SerializeField] Transform beginPos;
+
     Vector3 firstMousePos;
     Vector3 secondMousePos;
     Vector3 fisrtBrick;
-    Vector3 lastBrick;
     Vector3 PlayerPos;
-
     GameObject topBrick;
     GameObject buttomBrick;
     Rigidbody rb;
@@ -28,12 +24,14 @@ public class ControllerPlayer : MonoBehaviour
     RaycastHit wallHit;
 
     Vector3 prePos;
+    float angle;
     [SerializeField] Transform startBrick;
+    bool isMove;
     int brickLayer ;
     int unBrickLayer;
     int wallLayer;
     int numberOfBrick;
-    float Thickness;
+    bool isStart;
 
     List<GameObject> listOfBricks;
     private void Awake() {
@@ -41,7 +39,7 @@ public class ControllerPlayer : MonoBehaviour
         brickLayer = LayerMask.GetMask("BrickLayer");
         unBrickLayer = LayerMask.GetMask("UnBrickLayer");
         wallLayer = LayerMask.GetMask("WallLayer");
-        beginPos = PlayerModel.transform.position;
+        // PlayerModel.transform.position = beginPos.position;
          
         
         
@@ -51,25 +49,34 @@ public class ControllerPlayer : MonoBehaviour
     void Start()
     {
     //   prePos = PlayerModel.transform.position;
-        prePos = transform.position;
+      prePos = transform.position;
       listOfBricks= null;
       listOfBricks = new List<GameObject>();
       fisrtBrick = transform.position;
       PlayerPos = PlayerModel.transform.position;
+      isMove =false;
+      isStart= false;
       
     }
 
+
+
     // Update is called once per frame
     void Update()
+    
     {
-        Control();
+    
         MoveBrick();
+        checkMove();
+       if(isMove)
+        {
+            MoveToPoint();
+        }
 
-        Vector3 pos = isWall();
-        // pos.z = transform.position.y -0.5f;
-        // pos.x = transform.position.x -0.5f;
-        pos.y = transform.position.y;
-        transform.position = Vector3.MoveTowards(transform.position, pos, speed);
+        if(isMove)
+        {
+            MoveToPoint();
+        }
         
         
         //Remove Brick in wall
@@ -116,34 +123,57 @@ public class ControllerPlayer : MonoBehaviour
 
     void OnInit()
     {
-        started = false;
+     
         
     }
-    void Control()
-    {
-        eDirection = GetDirection();
+    Vector3 Control()
+    { 
+        EDirection eDirection = GetDirection();
        switch (eDirection) {
         case EDirection.Forward:
-            direction = Vector3.forward;
-            // rb.velocity = new Vector3(0, 0,speed );
-            break;
+             return Vector3.forward;
         case EDirection.Backward:
-            direction = Vector3.back;
-            // rb.velocity = new Vector3(0, 0,-speed );
-            break;
+            return   Vector3.back;
+            
+           
         case EDirection.Right:
-            direction = Vector3.right;
-            // rb.velocity = new Vector3(speed , 0,0);
-            break;
+            return Vector3.right;
+           
         case EDirection.Left:
-            direction = Vector3.left;
-            break;
+            return  Vector3.left;
+        case EDirection.None:
         default :
-            direction = startBrick.position;
-            break;
+           return Vector3.zero;
+        
        }
     }
 
+    void Control1()
+    { 
+        EDirection eDirection = GetDirection();
+       switch (eDirection) {
+        case EDirection.Forward:
+             rb.velocity = Vector3.forward*speed;
+             break;
+        case EDirection.Backward:
+             rb.velocity = Vector3.back*speed;
+             break;
+            
+           
+        case EDirection.Right:
+            rb.velocity = Vector3.right*speed;
+             break;
+           
+        case EDirection.Left:
+            rb.velocity = Vector3.left*speed;
+            break;
+        case EDirection.None:
+        default:
+           rb.velocity = Vector3.zero;
+           break;
+        
+       }
+    }
 
 
     void AddBrick()
@@ -175,8 +205,7 @@ public class ControllerPlayer : MonoBehaviour
         listOfBricks.Remove(buttomBrick);
         
     }
-
-    
+ 
     void MoveBrick()
     {   
         
@@ -187,6 +216,7 @@ public class ControllerPlayer : MonoBehaviour
             brick.transform.position = pos;
      }
     }
+    
     void ClearBrick()
     {
         foreach(GameObject brick in listOfBricks)
@@ -206,13 +236,22 @@ public class ControllerPlayer : MonoBehaviour
         
     }
 
+    void checkMove()
+    {
+        if(GetDirection()!= EDirection.None)
+        {
+            isMove = true;
+        }
+    }
+
     EDirection GetDirection(){
-        float angle = GetAngle();
+
+        angle = GetAngle();
         if(-135<=angle && angle<-45)
         {
             return EDirection.Backward;
         }
-        else if(-45<=angle && angle<45)
+        else if(-45<=angle && angle<45 && angle >3)
         {
             return EDirection.Right;
         }
@@ -220,15 +259,24 @@ public class ControllerPlayer : MonoBehaviour
         {
             return EDirection.Forward;
         }
-        else
+        else if( angle >= 135 || angle <-135)
         {
             return EDirection.Left;
         }
+        // return EDirection.None;
+
+        else
+        {
+            return EDirection.None;
+        }
+
+        
     }
 
 
     float GetAngle()
-    {
+    {   
+        
         if(Input.GetMouseButtonDown(0))
         {
             firstMousePos = Input.mousePosition;
@@ -243,43 +291,30 @@ public class ControllerPlayer : MonoBehaviour
     }
 
 
-    Vector3 GetPosition()
-    {
-        Vector3 transforms= new Vector3(0, 0, 0);
-
-        return transforms;
-    }
-
+    
     bool isBrick()
     {
         RaycastHit hitBrick;
         if(Physics.Raycast(transform.position, Vector3.down, out hitBrick, 25f,brickLayer))
         {
             hitBrick.collider.gameObject.SetActive(false);
+            Debug.DrawLine(transform.position, hitBrick.collider.transform.position, Color.red, 5f);
             return true;
         }   
         return false;
         
     }
 
-    void OnTriggerEnter(Collider other) {
-        if(other.tag =="end")
-        {
-            Debug.Log("Collider end");
-            rb.velocity = new Vector3(0, 0 ,speed);
-        }
-    }
+    
     bool isUnBrick()
     {
-    
-        
         if(Physics.Raycast(transform.position, Vector3.down, out unBrickHit, 50f,unBrickLayer))
         {
             Renderer brickRender = unBrickHit.collider.gameObject.GetComponent<Renderer>();
             Vector3 pos = unBrickHit.collider.gameObject.transform.position;
             pos.y = unBrickHit.collider.gameObject.transform.position.y + 0.8f;
             unBrickHit.collider.gameObject.transform.position = pos;
-            
+            Debug.DrawLine(transform.position, pos, Color.black, 5f);
             if(listOfBricks.Count>1)
             {
                 brickRender.material= UnBrickmaterial;
@@ -291,29 +326,36 @@ public class ControllerPlayer : MonoBehaviour
         return false; 
     }
 
-    Vector3 isWall()
+    Vector3 GetPostion()
     {   
+       Vector3 direction = Control();
+       Debug.Log("direction: " + direction);
         
-        
-        if(Physics.Raycast(transform.position, direction, out wallHit, 10f, wallLayer))
+        if(Physics.Raycast(transform.position, direction, out wallHit, 1000f, wallLayer))
         {
-            
             Vector3 pos = wallHit.transform.position;
-            pos.z = wallHit.transform.position.z -0.5f;
-            pos.x = wallHit.transform.position.x -0.5f;
             pos.y = transform.position.y;
-            Debug.DrawLine(transform.position, pos, Color.red, 5f);
-            return pos;
+            Debug.DrawLine(transform.position, pos, Color.green, 5f);
+            
+            return pos - direction*0.5f;
         }   
         return transform.position;
     }
-
-   
-
-    void SetDeActivate(GameObject go)
+    void MoveToPoint()
     {
-        go.SetActive(false);
-    }
+        isMove= false;
+        float distance = Vector3.Distance(transform.position, GetPostion());
+        if(distance>0.6f)
+        {
 
-    
+            
+            rb.velocity = Control()*speed;
+        }
+        else
+        {
+            rb.velocity = Vector3.zero;
+        }
+        
+    }
+ 
 }

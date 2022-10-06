@@ -8,6 +8,6 @@ public enum EDirection
     Forward,
     Left,
     Right,
-    Idle
+    None
    
 }
