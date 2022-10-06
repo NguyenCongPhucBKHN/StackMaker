@@ -12,8 +12,12 @@ public class ControllerPlayer : MonoBehaviour
     // [SerializeField] UnBrickController UnBrick;
     [SerializeField] Material UnBrickmaterial;
     [SerializeField] Transform beginPos;
+    [SerializeField] Transform endPos;
+    [SerializeField] GameObject winPos;
+    [SerializeField]  ParticleSystem[] particleSystems;
 
     Vector3 firstMousePos;
+    Vector3 direction;
     Vector3 secondMousePos;
     Vector3 fisrtBrick;
     Vector3 PlayerPos;
@@ -70,11 +74,16 @@ public class ControllerPlayer : MonoBehaviour
         
         MoveBrick();
         checkMove();
-    //    if(isMove)
-    //     {
-    //         MoveToPoint();
-    //     }
 
+        // if(isEnd())
+        // {
+        //     EndAnimation();
+        // }
+
+        if(Input.GetKeyDown(KeyCode.E))
+        {
+            Debug.Log("isEnd: "+ isEnd());
+        }
         if(Input.GetMouseButtonUp(0))
         {
             target = GetPostion();
@@ -126,7 +135,7 @@ public class ControllerPlayer : MonoBehaviour
         }
     }
 
-    void OnInit()
+    public void OnInit()
     {
      
         
@@ -141,7 +150,7 @@ public class ControllerPlayer : MonoBehaviour
             return   Vector3.back;
         case EDirection.Right:
             return Vector3.right;
-           
+
         case EDirection.Left:
             return  Vector3.left;
         case EDirection.None:
@@ -185,7 +194,7 @@ public class ControllerPlayer : MonoBehaviour
         PlayerPos.z = PlayerModel.transform.position.z;
         topBrick = Instantiate(BrickPrefab, PlayerPos, Quaternion.Euler(90, 0, -180), ListBrick.transform );
         listOfBricks.Add(topBrick);
-        PlayerPos.y = topBrick.transform.position.y + 0.4f;
+        PlayerPos.y = topBrick.transform.position.y + 0.3f;
         PlayerModel.transform.position = PlayerPos;
     }
 
@@ -248,7 +257,6 @@ public class ControllerPlayer : MonoBehaviour
     }
 
     EDirection GetDirection(){
-
         angle = GetAngle();
         Debug.Log("angle: "+ angle);
         if(-135<=angle && angle<-45)
@@ -332,7 +340,7 @@ public class ControllerPlayer : MonoBehaviour
 
     Vector3 GetPostion()
     {   
-       Vector3 direction = Control();
+       direction = Control();
        Debug.Log("direction: " + direction);
         
         if(Physics.Raycast(transform.position, direction, out wallHit, 1000f, wallLayer))
@@ -340,7 +348,6 @@ public class ControllerPlayer : MonoBehaviour
             Vector3 pos = wallHit.transform.position;
             pos.y = transform.position.y;
             Debug.DrawLine(transform.position, pos - direction*1f, Color.green, 5f);
-            
             return pos - direction*1f;
         }   
         return transform.position;
@@ -350,8 +357,6 @@ public class ControllerPlayer : MonoBehaviour
         float distance = Vector3.Distance(transform.position, GetPostion());
         if(distance>0.6f)
         {
-
-            
             rb.velocity = Control()*speed;
         }
         else
@@ -364,12 +369,30 @@ public class ControllerPlayer : MonoBehaviour
     void MoveToPoint1(Vector3 target)
     {    
         transform.position = Vector3.MoveTowards(transform.position, target, 1f);
-    
-        // else
-        // {
-        //     rb.velocity = Vector3.zero;
-        // }
+    }
+
+    bool isEnd()
+    {   
+       
+        Vector3 comparePos = endPos.position;
+        return (Mathf.Abs(comparePos.x - transform.position.x)<0.5 && Mathf.Abs(comparePos.z - transform.position.z)<0.5);
+    }
+    void EndAnimation()
+    {
+        winPos.SetActive(true);
+        foreach( ParticleSystem particle in particleSystems)
+        {
+            particle.Play();
+            Invoke(nameof(StopEndAnimation), 3f);
+        }
+    }
+    void StopEndAnimation()
+    {
+        foreach( ParticleSystem particle in particleSystems)
+        {
+            particle.Pause();
         
+        }
     }
  
 }
