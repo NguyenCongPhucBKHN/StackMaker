@@ -66,17 +66,20 @@ public class ControllerPlayer : MonoBehaviour
     
     {
     
+        Vector3 target  = transform.position;
         MoveBrick();
         checkMove();
-       if(isMove)
+    //    if(isMove)
+    //     {
+    //         MoveToPoint();
+    //     }
+
+        if(Input.GetMouseButtonUp(0))
         {
-            MoveToPoint();
+            target = GetPostion();
         }
 
-        if(isMove)
-        {
-            MoveToPoint();
-        }
+        MoveToPoint1(target);
         
         
         //Remove Brick in wall
@@ -134,8 +137,6 @@ public class ControllerPlayer : MonoBehaviour
              return Vector3.forward;
         case EDirection.Backward:
             return   Vector3.back;
-            
-           
         case EDirection.Right:
             return Vector3.right;
            
@@ -247,11 +248,12 @@ public class ControllerPlayer : MonoBehaviour
     EDirection GetDirection(){
 
         angle = GetAngle();
+        Debug.Log("angle: "+ angle);
         if(-135<=angle && angle<-45)
         {
             return EDirection.Backward;
         }
-        else if(-45<=angle && angle<45 && angle >3)
+        else if(Mathf.Abs(angle)<45f && Mathf.Abs(angle)>2f)
         {
             return EDirection.Right;
         }
@@ -335,15 +337,14 @@ public class ControllerPlayer : MonoBehaviour
         {
             Vector3 pos = wallHit.transform.position;
             pos.y = transform.position.y;
-            Debug.DrawLine(transform.position, pos, Color.green, 5f);
+            Debug.DrawLine(transform.position, pos - direction*1f, Color.green, 5f);
             
-            return pos - direction*0.5f;
+            return pos - direction*1f;
         }   
         return transform.position;
     }
     void MoveToPoint()
     {
-        isMove= false;
         float distance = Vector3.Distance(transform.position, GetPostion());
         if(distance>0.6f)
         {
@@ -355,6 +356,22 @@ public class ControllerPlayer : MonoBehaviour
         {
             rb.velocity = Vector3.zero;
         }
+        
+    }
+
+    void MoveToPoint1(Vector3 target)
+    {
+        // isMove= false;
+        // float distance = Vector3.Distance(transform.position, GetPostion());
+        
+
+            
+        transform.position = Vector3.MoveTowards(transform.position, target, 1f);
+    
+        // else
+        // {
+        //     rb.velocity = Vector3.zero;
+        // }
         
     }
  
