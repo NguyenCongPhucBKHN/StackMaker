@@ -26,16 +26,21 @@ public class ControllerPlayer : MonoBehaviour
     Rigidbody rb;
     RaycastHit unBrickHit;
     RaycastHit wallHit;
-    Vector3 target;
+    public Vector3 target;
     Vector3 prePos;
     float angle;
+
     [SerializeField] Transform startBrick;
+    MouseInput mouseInput;
+    PlayerMove playerMove;
     bool isMove;
     int brickLayer ;
     int unBrickLayer;
     int wallLayer;
     int numberOfBrick;
     bool isStart;
+    public bool isWin;
+
     bool isMouse => Input.GetMouseButtonUp(0);
 
     List<GameObject> listOfBricks;
@@ -43,17 +48,14 @@ public class ControllerPlayer : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         brickLayer = LayerMask.GetMask("BrickLayer");
         unBrickLayer = LayerMask.GetMask("UnBrickLayer");
-        wallLayer = LayerMask.GetMask("WallLayer");
-        // PlayerModel.transform.position = beginPos.position;
-         
-        
-        
+        wallLayer = LayerMask.GetMask(Const.LAYER_WALL);
+        mouseInput = GetComponent<MouseInput>();
+        playerMove = GetComponent<PlayerMove>();
+
     }
-    
-    // Start is called before the first frame update
+   
     void Start()
     {
-    //   prePos = PlayerModel.transform.position;
       prePos = transform.position;
       listOfBricks= null;
       listOfBricks = new List<GameObject>();
@@ -65,49 +67,42 @@ public class ControllerPlayer : MonoBehaviour
       
     }
 
-
-
-    // Update is called once per frame
     void Update()
-    
     {
-    
-        
         MoveBrick();
         checkMove();
-
-        // if(isEnd())
-        // {
-        //     EndAnimation();
-        // }
-
         if(Input.GetKeyDown(KeyCode.E))
         {
             Debug.Log("isEnd: "+ isEnd());
         }
-        if(GameManager.Instance.IsState(EGameState.GamePlay)&&isMouse)
+        Debug.Log("IsWin in player"+ isWin);
+        Debug.Log("dk: "+ (GameManager.Instance.IsState(EGameState.GamePlay)&&isMouse && !isWin ));
+        if(GameManager.Instance.IsState(EGameState.GamePlay)&&isMouse && !isWin)
         {
             target = GetPostion();
             
         }
-
-        MoveToPoint1(target);
         
-        
-        //Remove Brick in wall
+        if(!isWin)
+        {
+            MoveToPoint(target);
+            // playerMove.MoveToPoint(target);
+           
+        }
+        // if(isWin)
+        // {
+        //      transform.position = new Vector3 (-0.5f, 0, 0.5f);
+        // }           
+       
         if(isBrick())
         {
             AddBrick();
         }
-
-        //Add Brick in wall
         if(isUnBrick() )
         {
             RemoveBrick();
             unBrickHit.collider.enabled= false;
-        }
-        
-        
+        }        
         if(Input.GetKeyDown(KeyCode.R))
         {
             if(listOfBricks.Count>0)
@@ -127,7 +122,7 @@ public class ControllerPlayer : MonoBehaviour
         }
         if(Input.GetKeyDown(KeyCode.N))
         {
-            Debug.Log("Number brick: "+ listOfBricks.Count);
+
         }
 
         if(Input.GetKeyDown(KeyCode.F))
@@ -138,12 +133,16 @@ public class ControllerPlayer : MonoBehaviour
 
     public void OnInit()
     {
-     
+     transform.position = new Vector3(-0.5f, 0, 0.5f);
+     target = new Vector3(-0.5f, 0, 0.5f);
+     isWin = false;
+     GameManager.Instance.ChangeState(EGameState.GamePlay);
         
     }
     Vector3 Control()
     { 
-        EDirection eDirection = GetDirection();
+        EDirection eDirection = mouseInput.GetEDirection();
+        Debug.Log("eDirection: "+ eDirection);
        switch (eDirection) {
         case EDirection.Forward:
              return Vector3.forward;
@@ -341,7 +340,7 @@ public class ControllerPlayer : MonoBehaviour
 
     Vector3 GetPostion()
     {   
-       direction = Control();
+       direction = mouseInput.GetDirection();
        Debug.Log("direction: " + direction);
         
         if(Physics.Raycast(transform.position, direction, out wallHit, 1000f, wallLayer))
@@ -353,21 +352,8 @@ public class ControllerPlayer : MonoBehaviour
         }   
         return transform.position;
     }
-    void MoveToPoint()
-    {
-        float distance = Vector3.Distance(transform.position, GetPostion());
-        if(distance>0.6f)
-        {
-            rb.velocity = Control()*speed;
-        }
-        else
-        {
-            rb.velocity = Vector3.zero;
-        }
-        
-    }
 
-    void MoveToPoint1(Vector3 target)
+    void MoveToPoint(Vector3 target)
     {    
         transform.position = Vector3.MoveTowards(transform.position, target, 1f);
     }

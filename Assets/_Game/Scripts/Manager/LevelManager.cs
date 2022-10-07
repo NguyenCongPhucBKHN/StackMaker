@@ -6,6 +6,7 @@ public class LevelManager : Singleton<LevelManager>
 {
    
     public List<Level> levels = new List<Level>();
+    
     public ControllerPlayer player;
     Level currentLevel;
     int level =1;
@@ -14,6 +15,7 @@ public class LevelManager : Singleton<LevelManager>
         LoadLevel(1);
         OnInit();
         UIManager.Instance.OpenMainMenuUI();
+        OnStart();
     }
     
    public void LoadLevel(int level)
@@ -23,35 +25,45 @@ public class LevelManager : Singleton<LevelManager>
         Destroy(currentLevel.gameObject);
     }
     currentLevel = Instantiate(levels[level-1]);
+    OnStart();
    }
    
    public void OnInit()
    {
-        Vector3 startPos = currentLevel.startPoint.position;
-        startPos.y+=3;
-        player.transform.position = startPos;
         player.OnInit();
+        
    }
    public void OnStart()
    {
+        player.isWin = false;
    }
    public void OnFinsih()
-   {
+   {    
+        player.isWin = true;
         UIManager.Instance.OpenFinishUI();
         GameManager.Instance.ChangeState(EGameState.Finish);
+        
    }
 
    public void LoadRePlayLevel()
    {
     LoadLevel(level);
     OnInit();
+    
    }
 
    public void LoadNextLevel()
    {
+    
+    player.isWin = false;
+    
+    // player.transform.position = new Vector3(-0.5f, 0, 0.5f);
     level ++;
-    LoadLevel(level);
+    LoadLevel(2);
+    OnInit();
+    
    }
+
 
    void CheckLevel()
    {

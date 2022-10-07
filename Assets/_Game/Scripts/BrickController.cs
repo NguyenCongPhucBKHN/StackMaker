@@ -11,7 +11,7 @@ public class BrickController : MonoBehaviour
     {
         Move();
     }
-
+    
     void Move()
     {
         Vector3 pos = BrickTransform.position;

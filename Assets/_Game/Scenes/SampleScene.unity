@@ -1093,6 +1093,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 405332052, guid: ec4c2cd8f3601b741961becdbd3ff8d4, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 405332052, guid: ec4c2cd8f3601b741961becdbd3ff8d4, type: 3}
       propertyPath: startBrick
       value: 
       objectReference: {fileID: 0}
@@ -1162,11 +1166,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1073136193215320181, guid: ec4c2cd8f3601b741961becdbd3ff8d4, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1073136193215320181, guid: ec4c2cd8f3601b741961becdbd3ff8d4, type: 3}
       propertyPath: m_Center.y
-      value: 0
+      value: 0.9
       objectReference: {fileID: 0}
     - target: {fileID: 8616489161072324001, guid: ec4c2cd8f3601b741961becdbd3ff8d4, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1390,7 +1394,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &332992458
 MonoBehaviour:
@@ -1554,6 +1558,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63c8618ff4c669a46bc5d41963c64a5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &405332052
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 405332050}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6c57522788bc8648b1be209408537e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &405332053
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 405332050}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e389f17493907549af9dcbc216b3d8d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 5
 --- !u!4 &405332055 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1073136193215320179, guid: ec4c2cd8f3601b741961becdbd3ff8d4, type: 3}
@@ -1587,7 +1616,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &519598339
 GameObject:
@@ -1749,7 +1778,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &599677784
 PrefabInstance:
@@ -2351,7 +2380,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &819827846
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3280,7 +3309,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 405332050}
   offset: {x: -1, y: 41, z: -40}
-  lerpRate: 100
+  lerpRate: 10
 --- !u!1001 &1029322339
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4163,7 +4192,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1279041831
 MonoBehaviour:
@@ -4179,6 +4208,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levels:
   - {fileID: 1777426938950827227, guid: 82398a3788545a141af56a5e4c4979ea, type: 3}
+  - {fileID: 1777426938950827227, guid: 381738d7810ff264dbac7d5e5dff8bdf, type: 3}
   player: {fileID: 405332051}
 --- !u!1001 &1284042093
 PrefabInstance:
@@ -4805,7 +4835,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 332992458}
         m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
-        m_MethodName: RePlayButton
+        m_MethodName: NextButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5308,7 +5338,7 @@ Transform:
   m_LocalScale: {x: 100, y: 1000, z: 100}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1688651464
 PrefabInstance:
@@ -5935,7 +5965,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1841783320
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6240,7 +6270,9 @@ MonoBehaviour:
   endPos: {fileID: 0}
   winPos: {fileID: 0}
   particleSystems: []
+  target: {x: 0, y: 0, z: 0}
   startBrick: {fileID: 0}
+  isWin: 0
 --- !u!1001 &1886276894
 PrefabInstance:
   m_ObjectHideFlags: 0

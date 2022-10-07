@@ -30,7 +30,9 @@ public class UIManager : Singleton<UIManager>
     public void NextButton()
     {
         LevelManager.Instance.LoadNextLevel();
-        GameManager.Instance.ChangeState(EGameState.MainMenu);
+        GameManager.Instance.ChangeState(EGameState.GamePlay);
         OpenMainMenuUI();
+        finishUI.SetActive(false);
+        
     }
 }

@@ -4,22 +4,43 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] private GameObject brick;
-    // Start is called before the first frame update
+    [SerializeField] float speed=5;
+    private MouseInput mouseInput;
+    private PlayerMove playerMove;
+    private bool isMouse => Input.GetMouseButtonUp(0);
+    Vector3 target;
+    Vector3 direction;
+    RaycastHit wallHit;
+    int wallLayer;
+    
+
+
+    private void Awake() {
+        mouseInput = GetComponent<MouseInput>();
+        playerMove = GetComponent<PlayerMove>();
+        
+        
+    }
     void Start()
     {
+        transform.position = new Vector3 (-0.5f, 0, 0.5f);
+    }
+
+    void Update()
+    {
+        if(mouseInput.isMouse)
+        {
+            
+            
+        }
+        if(mouseInput.isNone())
+        {
+           
+        }
+
+        
+        
         
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        Debug.Log("Hit: "+checkBrick());
-    }
-
-    private bool checkBrick()
-    {
-        return Physics.Raycast(transform.position, brick.transform.position, 1.1f);
-         
-    }
 }
