@@ -31,3 +31,4 @@ Class UnBrickProcess để xử lý vùng UnBrickWall khi Player đi qua, sẽ t
 
 Class EndGame thực hiện Particle khi Player đến điểm đích
 
+Class GenerateMap đang được update để sinh ra map ngẫu nhiên
