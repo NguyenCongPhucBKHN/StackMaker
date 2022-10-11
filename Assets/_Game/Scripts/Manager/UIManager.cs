@@ -7,9 +7,11 @@ public class UIManager : Singleton<UIManager>
     public GameObject mainmenuUI;
     public GameObject finishUI;
     public Text score;
+    public Text level;
     
     private void Update() {
         score.text ="SCORE: " + LevelManager.Instance.GetScore().ToString();
+        level.text = "LEVEL " + LevelManager.Instance.GetLevel().ToString();
     }
     public void OpenMainMenuUI()
     {

@@ -12,4 +12,9 @@ public class CONST
    public static string TAG_WIN = "tag_win";
    public static string TAG_PX ="PX";
    public static string TAG_OPEN ="oj_open";
+   public static string ANI_IDLE = "cs01";
+   public static string ANI_UNBRICK ="btnHuxi";
+   public static string ANI_ADDBIRCK ="Take 04";
+   public static string ANI_WIN = "Take 3";
+
 }

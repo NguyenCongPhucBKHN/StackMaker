@@ -44,7 +44,8 @@ public class LevelManager : Singleton<LevelManager>
    }
 
    public void LoadRePlayLevel() //Choi lai tu man 1
-   {
+   {    
+        player.score =0;
         level = 1;
         LoadLevel(level);
         OnInit();
@@ -61,5 +62,9 @@ public class LevelManager : Singleton<LevelManager>
    public float GetScore()
    {
      return player.score;
+   }
+   public float GetLevel()
+   {
+    return level;
    }
 }
