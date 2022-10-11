@@ -20598,8 +20598,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 760ccd731d8ef9342ad29703d78503f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UnBrickmaterial: {fileID: 2100000, guid: 3e59f1440d8086d42b2892e52231286e, type: 2}
-  PlayerPos: {fileID: 405332055}
+  UnBrickmaterial: {fileID: 2100000, guid: 90dff8eb6f4f3544482f2b20bf720643, type: 2}
+  PlayerPos: {fileID: 2144964356}
   BrickPrefab: {fileID: 3518947209639601915, guid: a48004f210606724c87e1065b9839dcd, type: 3}
   ListBrick: {fileID: 678920228}
 --- !u!4 &405332055 stripped
@@ -20607,28 +20607,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1073136193215320179, guid: ec4c2cd8f3601b741961becdbd3ff8d4, type: 3}
   m_PrefabInstance: {fileID: 276508766}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &405332056
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 405332050}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 63c8618ff4c669a46bc5d41963c64a5e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 5
-  BrickPrefab: {fileID: 3518947209639601915, guid: a48004f210606724c87e1065b9839dcd, type: 3}
-  PlayerModel: {fileID: 405332050}
-  ListBrick: {fileID: 678920228}
-  UnBrickmaterial: {fileID: 0}
-  beginPos: {fileID: 0}
-  endPos: {fileID: 0}
-  winPos: {fileID: 0}
-  particleSystems: []
-  startBrick: {fileID: 0}
 --- !u!1 &407216755
 GameObject:
   m_ObjectHideFlags: 0
@@ -101793,6 +101771,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2140832459}
   m_Mesh: {fileID: 4300000, guid: 96ba56b6f3355424086c0991c426baa9, type: 2}
+--- !u!4 &2144964356 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8616489161072324001, guid: ec4c2cd8f3601b741961becdbd3ff8d4, type: 3}
+  m_PrefabInstance: {fileID: 276508766}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2146501743
 GameObject:
   m_ObjectHideFlags: 0

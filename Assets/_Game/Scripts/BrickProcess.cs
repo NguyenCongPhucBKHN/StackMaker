@@ -62,8 +62,7 @@ public class BrickProcess : MonoBehaviour
     }
 
     public void AddBrick()
-    {   pos.x = PlayerPos.position.x;
-        pos.z = PlayerPos.position.z;
+    {   pos = PlayerPos.position;
         topBrick = Instantiate(BrickPrefab, pos, Quaternion.Euler(90, 0, -180), ListBrick.transform );
         listOfBricks.Add(topBrick);
         pos.y = topBrick.transform.position.y + 0.3f;
