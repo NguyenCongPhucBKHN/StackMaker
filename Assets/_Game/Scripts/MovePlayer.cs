@@ -8,13 +8,14 @@ public class MovePlayer : MonoBehaviour
     EDirection eDirection;
     RaycastHit wallHit;
     int wallLayer;
+    Vector3 dir;
     void Awake()
     {
         wallLayer = LayerMask.GetMask(CONST.LAYER_WALL);
     }
+    
 public Vector3 GetTargetPosition(EDirection direction)
     {
-       Vector3 dir= Vector3.zero;
        switch (direction) 
        {
         case EDirection.Backward:
@@ -30,17 +31,22 @@ public Vector3 GetTargetPosition(EDirection direction)
             dir = Vector3.right;
             break;
         case EDirection.None:
+            break;
         default :
             break;
        }
-       if(Physics.Raycast(Player.position, dir, out wallHit, Mathf.Infinity, wallLayer))
+       if(Physics.Raycast(Player.position, dir, out wallHit, Mathf.Infinity, wallLayer)&& dir != Vector3.zero)
        {
+            Debug.Log("dir: "+ dir);
+            
             Vector3 pos = wallHit.transform.position;
+            pos.y = transform.position.y;
+            Debug.Log("pos "+ pos);
             Debug.DrawLine(transform.position, pos - dir*1f, Color.green, 5f);
-            pos.y = Player.position.y;
             return pos - dir*1f;
        }
        return Player.position;
+       
     }
 
     public void MoveToTargetPosition(Vector3 target)
@@ -50,9 +56,9 @@ public Vector3 GetTargetPosition(EDirection direction)
     }
 
     public void Move()
-    {
-        Vector3 pose = GetTargetPosition(eDirection);
-        Debug.Log("pose: "+ pose);
+    {   eDirection =MouseInput.Instance.GetEDirection();
+        Vector3 pose = transform.position;
+        pose = GetTargetPosition(eDirection);
         MoveToTargetPosition(pose);
 
     }

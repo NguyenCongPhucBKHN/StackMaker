@@ -19,22 +19,29 @@ public class Player : MonoBehaviour
     }
     private void Update() 
     {
-
-        EDirection eDirection = MouseInput.Instance.GetEDirection();
+        // EDirection eDirection = MouseInput.Instance.GetEDirection();
         
-        Vector3 position = movePlayer.GetTargetPosition(eDirection);
+        // Vector3 position = movePlayer.GetTargetPosition(eDirection);
+        // movePlayer.MoveToTargetPosition(position);
+        // EDirection direction = MouseInput.Instance.GetEDirection();
+        movePlayer.Move();
+         
         
-        if(controllerPlayer.isBrick())
-        {
-            controllerPlayer.AddBrick();
-        }
+           
+        
+       
+        
+        // if(controllerPlayer.isBrick())
+        // {
+        //     controllerPlayer.AddBrick();
+        // }
 
-        if(controllerPlayer.isUnBrick())
-        {
-            controllerPlayer.RemoveBrick();
-        }
+        // if(controllerPlayer.isUnBrick())
+        // {
+        //     controllerPlayer.RemoveBrick();
+        // }
 
-        movePlayer.MoveToTargetPosition(position);
+       
 
         
 

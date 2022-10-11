@@ -90,6 +90,7 @@ public class ControllerPlayer : MonoBehaviour
         //     target = GetPostion();
             
         // }
+        // target = GetPostion();
 
         // MoveToPoint1(target);
         

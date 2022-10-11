@@ -8,10 +8,14 @@ public class MouseInput : Singleton<MouseInput>
     private Vector2 firstMouse;
     private Vector2 secondMouse;
     public EDirection eDirection;
-    public bool isMove => Input.GetMouseButtonDown(0);
-    public EDirection GetEDirection()
-    {
-        eDirection = EDirection.None;
+    public bool isMove =>Input.GetMouseButtonUp(0);
+
+    private void Update() {
+        Swipe();
+    }
+    public void Swipe()
+    {   
+        
         if(Input.GetMouseButtonDown(0))
         {
             firstMouse = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
@@ -45,8 +49,15 @@ public class MouseInput : Singleton<MouseInput>
                 
                eDirection = EDirection.Right;
             }
-
         }
-        return eDirection;
     }
+
+    public EDirection GetEDirection()
+    {
+      
+        return eDirection;
+       
+    }
+
+    
 }
