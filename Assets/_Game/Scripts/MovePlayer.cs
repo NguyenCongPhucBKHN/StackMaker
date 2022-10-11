@@ -35,20 +35,20 @@ public Vector3 GetTargetPosition(EDirection direction)
         default :
             break;
        }
-       if(Physics.Raycast(Player.position, dir, out wallHit, Mathf.Infinity, wallLayer)&& dir != Vector3.zero)
+       
+       if(Physics.Raycast(Player.position, dir, out wallHit, Mathf.Infinity, wallLayer))
        {
             Debug.Log("dir: "+ dir);
             
             Vector3 pos = wallHit.transform.position;
-            pos.y = transform.position.y;
+            pos.y = Player.position.y;
             Debug.Log("pos "+ pos);
-            Debug.DrawLine(transform.position, pos - dir*1f, Color.green, 5f);
+            Debug.DrawLine(Player.position, pos - dir*1f, Color.green, 5f);
             return pos - dir*1f;
        }
        return Player.position;
-       
     }
-
+    
     public void MoveToTargetPosition(Vector3 target)
     {
         Debug.Log("target: "+ target);
@@ -57,10 +57,9 @@ public Vector3 GetTargetPosition(EDirection direction)
 
     public void Move()
     {   eDirection =MouseInput.Instance.GetEDirection();
-        Vector3 pose = transform.position;
+        Vector3 pose = Player.position;
         pose = GetTargetPosition(eDirection);
         MoveToTargetPosition(pose);
-
     }
 
 }

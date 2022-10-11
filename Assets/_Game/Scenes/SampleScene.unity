@@ -10757,6 +10757,10 @@ PrefabInstance:
       value: Player 1
       objectReference: {fileID: 0}
     - target: {fileID: 1073136193215320178, guid: ec4c2cd8f3601b741961becdbd3ff8d4, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1073136193215320178, guid: ec4c2cd8f3601b741961becdbd3ff8d4, type: 3}
       propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
@@ -10774,7 +10778,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1073136193215320179, guid: ec4c2cd8f3601b741961becdbd3ff8d4, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.5
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1073136193215320179, guid: ec4c2cd8f3601b741961becdbd3ff8d4, type: 3}
       propertyPath: m_LocalRotation.w
@@ -20573,6 +20577,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e389f17493907549af9dcbc216b3d8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StartPoint: {fileID: 1484588385}
+  PlayerTransform: {fileID: 405332055}
+  isWin: 0
 --- !u!114 &405332052
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -38995,6 +39002,7 @@ GameObject:
   m_Component:
   - component: {fileID: 818487372}
   - component: {fileID: 818487373}
+  - component: {fileID: 818487374}
   m_Layer: 0
   m_Name: WinPoint
   m_TagString: Untagged
@@ -39029,12 +39037,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa1b49624c2839b4ebf7950035eca023, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EndTransform: {fileID: 818487372}
-  PlayerTransform: {fileID: 1073136193215320179, guid: ec4c2cd8f3601b741961becdbd3ff8d4, type: 3}
+  player: {fileID: 405332051}
   win: {fileID: 1048449581}
   particleSystems:
   - {fileID: 1067833394}
   - {fileID: 248642508}
+--- !u!65 &818487374
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 818487371}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 3.6, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &819827845
 GameObject:
   m_ObjectHideFlags: 0

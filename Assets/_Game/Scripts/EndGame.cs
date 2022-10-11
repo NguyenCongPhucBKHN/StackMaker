@@ -4,28 +4,24 @@ using UnityEngine;
 
 public class EndGame : MonoBehaviour
 {
-    public Transform EndTransform;
-    public Transform PlayerTransform;
+    [SerializeField] Player player;
     public GameObject win;
     public ParticleSystem[] particleSystems;
-    bool isWin = false;
 
-    
-    // Update is called once per frame
     void Update()
     {
         
-        if(isWin)
+        if(player.isWin)
         {
             EndAnimation();
             ChangeLevel();
         }
     }
     void OnTriggerEnter(Collider other) {
-        if(other.CompareTag("Player"))
+        if(other.CompareTag(CONST.TAG_PLAYER))
         {
-            isWin= true;
-            Debug.Log("isWin: "+ isWin);
+            player.isWin= true;
+            Debug.Log("isWin: "+ player.isWin);
         }
     }
 
@@ -49,7 +45,7 @@ public class EndGame : MonoBehaviour
 
     void ChangeLevel()
     {
-        LevelManager.Instance.OnFinsih();
+        // LevelManager.Instance.OnFinsih();
     }
 
 
