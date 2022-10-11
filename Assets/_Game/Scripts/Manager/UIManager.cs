@@ -20,6 +20,7 @@ public class UIManager : Singleton<UIManager>
     {
         mainmenuUI.SetActive(false);
         LevelManager.Instance.OnStart();
+        
     }
     public void RePlayButton()
     {

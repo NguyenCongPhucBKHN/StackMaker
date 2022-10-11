@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - end
+  - tag_win
+  - PX
+  - oj_open
   layers:
   - Default
   - TransparentFX

@@ -8,7 +8,7 @@ public class MouseInput : Singleton<MouseInput>
     private Vector2 firstMouse;
     private Vector2 secondMouse;
     public EDirection eDirection;
-    public bool isMove =>Input.GetMouseButtonUp(0);
+    public bool isMove = false;
 
     private void Update() {
         Swipe();
@@ -17,11 +17,13 @@ public class MouseInput : Singleton<MouseInput>
     {   
         
         if(Input.GetMouseButtonDown(0))
-        {
+        {   
+            
             firstMouse = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
         }
         if(Input.GetMouseButtonUp(0))
-        {
+        {   
+
             secondMouse = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
             Vector2 distance = secondMouse - firstMouse;
             distance.Normalize();

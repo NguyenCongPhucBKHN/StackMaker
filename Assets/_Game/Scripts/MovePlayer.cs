@@ -5,6 +5,8 @@ using UnityEngine;
 public class MovePlayer : MonoBehaviour
 {
     [SerializeField] Transform Player;
+    private Player player;
+
     EDirection eDirection;
     RaycastHit wallHit;
     int wallLayer;
@@ -12,6 +14,7 @@ public class MovePlayer : MonoBehaviour
     void Awake()
     {
         wallLayer = LayerMask.GetMask(CONST.LAYER_WALL);
+        player = GetComponent<Player>();
     }
     
 public Vector3 GetTargetPosition(EDirection direction)
@@ -31,6 +34,7 @@ public Vector3 GetTargetPosition(EDirection direction)
             dir = Vector3.right;
             break;
         case EDirection.None:
+            dir= Vector3.zero;
             break;
         default :
             break;
@@ -48,7 +52,7 @@ public Vector3 GetTargetPosition(EDirection direction)
        }
        return Player.position;
     }
-    
+
     public void MoveToTargetPosition(Vector3 target)
     {
         Debug.Log("target: "+ target);
@@ -61,5 +65,18 @@ public Vector3 GetTargetPosition(EDirection direction)
         pose = GetTargetPosition(eDirection);
         MoveToTargetPosition(pose);
     }
+
+    void OnTriggerEnter(Collider other) {
+        if(other.CompareTag(CONST.TAG_WIN))
+        {
+            player.isWin= true;
+            player.eDirection = EDirection.None;
+
+        }
+    }
+
+
+
+
 
 }

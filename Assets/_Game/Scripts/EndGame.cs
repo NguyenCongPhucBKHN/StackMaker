@@ -4,24 +4,33 @@ using UnityEngine;
 
 public class EndGame : MonoBehaviour
 {
-    [SerializeField] Player player;
+    private bool isDisplay;
     public GameObject win;
     public ParticleSystem[] particleSystems;
 
     void Update()
     {
         
-        if(player.isWin)
+        if(isDisplay)
         {
             EndAnimation();
-            ChangeLevel();
         }
+        else
+        {
+            StopEndAnimation();
+        }
+
+         Invoke(nameof(ResetDisplay), 15f);
+    }
+    void ResetDisplay()
+    {
+        isDisplay = false;
     }
     void OnTriggerEnter(Collider other) {
         if(other.CompareTag(CONST.TAG_PLAYER))
         {
-            player.isWin= true;
-            Debug.Log("isWin: "+ player.isWin);
+            isDisplay= true;
+
         }
     }
 
@@ -30,23 +39,19 @@ public class EndGame : MonoBehaviour
         win.SetActive(true);
         foreach( ParticleSystem particle in particleSystems)
         {
+            particle.gameObject.SetActive(true);
             particle.Play();
-            Invoke(nameof(StopEndAnimation), 3f);
+           
         }
     }
     void StopEndAnimation()
     {
+        win.SetActive(false);
         foreach( ParticleSystem particle in particleSystems)
         {
             particle.Pause();
+            particle.gameObject.SetActive(false);
         
         }
     }
-
-    void ChangeLevel()
-    {
-        // LevelManager.Instance.OnFinsih();
-    }
-
-
 }
