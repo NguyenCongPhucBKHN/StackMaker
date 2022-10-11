@@ -73,67 +73,67 @@ public class ControllerPlayer : MonoBehaviour
     {
     
         
-        MoveBrick();
-        checkMove();
+        // MoveBrick();
+        // checkMove();
 
-        // if(isEnd())
+        // // if(isEnd())
+        // // {
+        // //     EndAnimation();
+        // // }
+
+        // if(Input.GetKeyDown(KeyCode.E))
         // {
-        //     EndAnimation();
+        //     Debug.Log("isEnd: "+ isEnd());
+        // }
+        // if(GameManager.Instance.IsState(EGameState.GamePlay)&&isMouse)
+        // {
+        //     target = GetPostion();
+            
         // }
 
-        if(Input.GetKeyDown(KeyCode.E))
-        {
-            Debug.Log("isEnd: "+ isEnd());
-        }
-        if(GameManager.Instance.IsState(EGameState.GamePlay)&&isMouse)
-        {
-            target = GetPostion();
-            
-        }
+        // MoveToPoint1(target);
+        
+        
+        // //Remove Brick in wall
+        // if(isBrick())
+        // {
+        //     AddBrick();
+        // }
 
-        MoveToPoint1(target);
+        // //Add Brick in wall
+        // if(isUnBrick() )
+        // {
+        //     RemoveBrick();
+        //     unBrickHit.collider.enabled= false;
+        // }
         
         
-        //Remove Brick in wall
-        if(isBrick())
-        {
-            AddBrick();
-        }
-
-        //Add Brick in wall
-        if(isUnBrick() )
-        {
-            RemoveBrick();
-            unBrickHit.collider.enabled= false;
-        }
-        
-        
-        if(Input.GetKeyDown(KeyCode.R))
-        {
-            if(listOfBricks.Count>0)
-            {
+        // if(Input.GetKeyDown(KeyCode.R))
+        // {
+        //     if(listOfBricks.Count>0)
+        //     {
                 
-                RemoveBrick();
-            }
-            else
-            {
-                return;
-            }
-        }
+        //         RemoveBrick();
+        //     }
+        //     else
+        //     {
+        //         return;
+        //     }
+        // }
 
-        if(Input.GetKeyDown(KeyCode.C))
-        {
-            ClearBrick();
-        }
-        if(Input.GetKeyDown(KeyCode.N))
-        {
-            Debug.Log("Number brick: "+ listOfBricks.Count);
-        }
+        // if(Input.GetKeyDown(KeyCode.C))
+        // {
+        //     ClearBrick();
+        // }
+        // if(Input.GetKeyDown(KeyCode.N))
+        // {
+        //     Debug.Log("Number brick: "+ listOfBricks.Count);
+        // }
 
-        if(Input.GetKeyDown(KeyCode.F))
-        {
-            rb.velocity = new Vector3( 0, 0, speed);
-        }
+        // if(Input.GetKeyDown(KeyCode.F))
+        // {
+        //     rb.velocity = new Vector3( 0, 0, speed);
+        // }
     }
 
     public void OnInit()
@@ -189,7 +189,7 @@ public class ControllerPlayer : MonoBehaviour
     }
 
 
-    void AddBrick()
+    public void AddBrick()
     {   
         PlayerPos.x = PlayerModel.transform.position.x;
         PlayerPos.z = PlayerModel.transform.position.z;
@@ -199,7 +199,7 @@ public class ControllerPlayer : MonoBehaviour
         PlayerModel.transform.position = PlayerPos;
     }
 
-    void RemoveBrick()
+    public void RemoveBrick()
     {
         if(listOfBricks.Count>0)
         {
@@ -305,7 +305,7 @@ public class ControllerPlayer : MonoBehaviour
 
 
     
-    bool isBrick()
+    public bool isBrick()
     {
         RaycastHit hitBrick;
         if(Physics.Raycast(transform.position, Vector3.down, out hitBrick, 25f,brickLayer))
@@ -319,7 +319,7 @@ public class ControllerPlayer : MonoBehaviour
     }
 
     
-    bool isUnBrick()
+    public bool isUnBrick()
     {
         if(Physics.Raycast(transform.position, Vector3.down, out unBrickHit, 50f,unBrickLayer))
         {

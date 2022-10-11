@@ -4,22 +4,49 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] private GameObject brick;
-    // Start is called before the first frame update
-    void Start()
+    MovePlayer movePlayer;
+    BrickProcess brickProcess;
+    ControllerPlayer controllerPlayer;
+    Vector3 dir;
+    Vector3 position;
+    private void Awake() 
     {
+        movePlayer = GetComponent<MovePlayer>();
+        brickProcess = GetComponent<BrickProcess>();
+        controllerPlayer = GetComponent<ControllerPlayer>();
+        dir= Vector3.zero;
+        position = transform.position;
+    }
+    private void Update() 
+    {
+
+        EDirection eDirection = MouseInput.Instance.GetEDirection();
         
+        Vector3 position = movePlayer.GetTargetPosition(eDirection);
+        
+        if(controllerPlayer.isBrick())
+        {
+            controllerPlayer.AddBrick();
+        }
+
+        if(controllerPlayer.isUnBrick())
+        {
+            controllerPlayer.RemoveBrick();
+        }
+
+        movePlayer.MoveToTargetPosition(position);
+
+        
+
+        // if(brickProcess.isBrick())
+        // {
+        //     brickProcess.AddBrick();
+        // }
+
+        // if(brickProcess.isUnBrick())
+        // {
+        //     brickProcess.RemoveBrick();
+        // }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        Debug.Log("Hit: "+checkBrick());
-    }
-
-    private bool checkBrick()
-    {
-        return Physics.Raycast(transform.position, brick.transform.position, 1.1f);
-         
-    }
 }

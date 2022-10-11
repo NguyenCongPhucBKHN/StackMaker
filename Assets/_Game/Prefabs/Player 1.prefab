@@ -39,10 +39,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1073136193215320179}
-  - component: {fileID: 1073136193215320180}
   - component: {fileID: 1073136193215320182}
   - component: {fileID: 1073136193215320181}
-  - component: {fileID: 405332052}
   m_Layer: 0
   m_Name: Player 1
   m_TagString: Untagged
@@ -66,19 +64,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1073136193215320180
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1073136193215320178}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e389f17493907549af9dcbc216b3d8d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  brick: {fileID: 3518947209639601915, guid: a48004f210606724c87e1065b9839dcd, type: 3}
 --- !u!54 &1073136193215320182
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -109,24 +94,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 4, z: 0}
---- !u!114 &405332052
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1073136193215320178}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 63c8618ff4c669a46bc5d41963c64a5e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 5
-  BrickPrefab: {fileID: 3518947209639601915, guid: a48004f210606724c87e1065b9839dcd, type: 3}
-  PlayerModel: {fileID: 8617645002842274137}
-  ListBrick: {fileID: 1250154585}
-  UnBrickmaterial: {fileID: 2100000, guid: 90dff8eb6f4f3544482f2b20bf720643, type: 2}
-  startBrick: {fileID: 0}
 --- !u!1 &8617645002842274137
 GameObject:
   m_ObjectHideFlags: 0
