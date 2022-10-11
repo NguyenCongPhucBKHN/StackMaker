@@ -31,7 +31,7 @@ public class LevelManager : Singleton<LevelManager>
    public void OnInit()
    {
         player.OnInit();
-        player.transform.position = currentLevel.startPoint.position+ Vector3.up*3;
+        player.transform.position = currentLevel.startPoint.position + Vector3.up*3f;
    }
    public void OnStart()
    {
@@ -56,12 +56,10 @@ public class LevelManager : Singleton<LevelManager>
     level ++;
     LoadLevel(level);
     OnInit();
-    
    }
 
-   void CheckLevel()
+   public float GetScore()
    {
-    
+     return player.score;
    }
-
 }

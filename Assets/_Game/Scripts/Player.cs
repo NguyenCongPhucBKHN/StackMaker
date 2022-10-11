@@ -11,9 +11,11 @@ public class Player : MonoBehaviour
     BrickProcess brickProcess;
     ControllerPlayer controllerPlayer;
     Vector3 dir;
+    public float score =0f;
     public bool isWin;
     public EDirection eDirection;
     public bool isPlay= false;
+    
     private void Awake() 
     {
         movePlayer = GetComponent<MovePlayer>();
@@ -36,20 +38,22 @@ public class Player : MonoBehaviour
         }
         
        
-            
-
+        
         if(brickProcess.isBrick())
         {
             brickProcess.AddBrick();
+            score++;
         }
 
         if(brickProcess.isUnBrick())
         {
             brickProcess.RemoveBrick();
+            score++;
         }
 
         if(isWin)
-        {
+        {   
+            brickProcess.ClearBrick();
             LevelManager.Instance.OnFinsih();
         }
          
@@ -60,10 +64,7 @@ public class Player : MonoBehaviour
     {
         isPlay= false;
         eDirection= EDirection.None;
-        PlayerTransform.position = new Vector3( -0.5f,0, 0.5f);
+        // PlayerTransform.position = new Vector3( -0.5f,0, 0.5f);
         isWin = false;
     }
-
-
-
 }

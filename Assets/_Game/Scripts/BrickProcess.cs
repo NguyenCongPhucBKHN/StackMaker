@@ -80,7 +80,16 @@ public class BrickProcess : MonoBehaviour
         }
         PlayerPos.position = pos;
         listOfBricks.Remove(buttomBrick);
-        
+    }
+
+    public void ClearBrick()
+    {
+        foreach(GameObject brick in listOfBricks)
+        {
+            Destroy(brick);
+        }
+        listOfBricks.Clear();
+        PlayerPos.position = PlayerPos.position - (PlayerPos.position.y) * Vector3.up;
     }
 
 }

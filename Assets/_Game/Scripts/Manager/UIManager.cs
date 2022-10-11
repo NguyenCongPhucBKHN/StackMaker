@@ -1,11 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class UIManager : Singleton<UIManager>
 {
     public GameObject mainmenuUI;
     public GameObject finishUI;
+    public Text score;
+    
+    private void Update() {
+        score.text ="SCORE: " + LevelManager.Instance.GetScore().ToString();
+    }
     public void OpenMainMenuUI()
     {
         mainmenuUI.SetActive(true);
@@ -34,4 +39,5 @@ public class UIManager : Singleton<UIManager>
         GameManager.Instance.ChangeState(EGameState.MainMenu);
         OpenMainMenuUI();
     }
+
 }
