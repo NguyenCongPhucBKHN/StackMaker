@@ -18,9 +18,10 @@ public class MovePlayer : MonoBehaviour
         player = GetComponent<Player>();
     }
     
-    public Vector3 GetTargetPosition(EDirection direction)
+    //Tim diem dich den tu EDirection nhan tu InputMouse
+    public Vector3 GetTargetPosition(EDirection edirection)
     {
-       switch (direction) 
+       switch (edirection)     //Tim direction
        {
         case EDirection.Backward:
             dir = Vector3.back;
@@ -41,34 +42,25 @@ public class MovePlayer : MonoBehaviour
             break;
        }
        
-       if(Physics.Raycast(Player.position, dir, out wallHit, Mathf.Infinity, wallLayer))
+       if(Physics.Raycast(Player.position, dir, out wallHit, Mathf.Infinity, wallLayer)) //Ban tia raycast
        {
             Vector3 pos = wallHit.transform.position;
             pos.y = Player.position.y;
-            Debug.Log("pos "+ pos);
             Debug.DrawLine(Player.position, pos - dir*1f, Color.green, 5f);
             return pos - dir*1f;
        }
        return Player.position;
     }
 
-    public void MoveToTargetPosition(Vector3 target, float speed)
+    public void MoveToTargetPosition(Vector3 target, float speed) //Di chuyen den diem target
     {
         Player.position =  Vector3.MoveTowards(Player.position, target, speed*Time.deltaTime<1? speed*Time.deltaTime:1);
     }
 
-    public void Move()
+    public void Move() //Thuc hien hai ham tren: Tim diem dich va di chuyen den diem dich
     {   eDirection =MouseInput.Instance.GetEDirection();
         Vector3 pose = Player.position;
         pose = GetTargetPosition(eDirection);
         MoveToTargetPosition(pose, 50);
     }
-
-    // void OnTriggerEnter(Collider other) {
-    //     if(other.CompareTag(CONST.TAG_WIN))
-    //     {
-    //         player.isWin= true;
-    //         player.eDirection = EDirection.None;
-    //     }
-    // }
 }

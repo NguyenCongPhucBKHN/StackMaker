@@ -30,7 +30,6 @@ public class MouseInput : Singleton<MouseInput>
             if (distance.y > 0 && distance.x > -0.5f && distance.x < 0.5f)
             {
                 eDirection = EDirection.Forward;
-                Debug.Log("up");
             }
 
             

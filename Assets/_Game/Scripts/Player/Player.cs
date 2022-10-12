@@ -45,7 +45,7 @@ public class Player : MonoBehaviour
             LevelManager.Instance.OnFinish(); // Quan ly level show UI Finish
         }
     }
-
+    
     //Ham khoi tao cac tham so cho Player khi bat dau 1 level
     public void OnInit()
     {

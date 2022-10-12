@@ -4,41 +4,41 @@ using UnityEngine;
 
 public class EndGame : MonoBehaviour
 {
-    private bool isDisplay;
+    private bool isPlay;
     public GameObject win;
     public ParticleSystem[] particleSystems;
     private Player player;
 
-    private void Awake() {
+    private void Awake() 
+    {
         player = FindObjectOfType<Player>();
     }
     void Update()
     {
-        
-        if(isDisplay)
+        if(isPlay)  //Co play PX
         {
-            EndAnimation();
+            EndAnimation(); //Play PX
         }
         else
         {
-            StopEndAnimation();
+            StopEndAnimation(); //Stop PX
         }
-
         //  Invoke(nameof(ResetDisplay), 15f);
     }
-    void ResetDisplay()
+    void ResetDisplay()   //Reset co PX
     {
-        isDisplay = false;
+        isPlay = false;
     }
-    void OnTriggerEnter(Collider other) {
+    void OnTriggerEnter(Collider other)  //Phat hien va cham Player va diem dich
+    {
         if(other.CompareTag(CONST.TAG_PLAYER))
         {
-            isDisplay= true;
-            player.isWin = true;
-            player.eDirection = EDirection.None;
+            isPlay= true;                       //Set co play PX
+            player.isWin = true;                //Set co win cua Players
         }
     }
 
+    //Ham play PX;
     void EndAnimation()
     {
         win.SetActive(true);
@@ -49,6 +49,7 @@ public class EndGame : MonoBehaviour
            
         }
     }
+    //Ham end PX
     void StopEndAnimation()
     {
         win.SetActive(false);
