@@ -8,6 +8,8 @@ TagManager:
   - tag_win
   - PX
   - oj_open
+  - PlayerPos
+  - ListBrick
   layers:
   - Default
   - TransparentFX

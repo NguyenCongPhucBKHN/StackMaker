@@ -46,7 +46,6 @@ public class BrickProcess : MonoBehaviour
         if(Physics.Raycast(transform.position, Vector3.down, out unBrickHit, 200f,unBrickLayer))
         {
             Renderer brickRender = unBrickHit.collider.gameObject.GetComponent<Renderer>();
-            
             Vector3 pos = unBrickHit.collider.gameObject.transform.position;
             pos.y = unBrickHit.collider.gameObject.transform.position.y + 0.8f;
             unBrickHit.collider.gameObject.transform.position = pos;

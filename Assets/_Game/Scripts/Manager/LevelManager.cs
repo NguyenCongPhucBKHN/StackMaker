@@ -37,7 +37,7 @@ public class LevelManager : Singleton<LevelManager>
    {
         player.isPlay = true;
    }
-   public void OnFinsih()
+   public void OnFinish()
    {
         UIManager.Instance.OpenFinishUI();
         GameManager.Instance.ChangeState(EGameState.Finish);

@@ -90,6 +90,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7089437105410115462}
+  - component: {fileID: 3678550026147308243}
   m_Layer: 5
   m_Name: BrickWall
   m_TagString: Untagged
@@ -119,6 +120,19 @@ RectTransform:
   m_AnchoredPosition: {x: 9.35, y: -0.47}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!65 &3678550026147308243
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7025128832360895391}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Size: {x: 0.5, y: 11.34, z: 0.5}
+  m_Center: {x: 0, y: 6, z: 0}
 --- !u!1 &7025162187701305502
 GameObject:
   m_ObjectHideFlags: 0

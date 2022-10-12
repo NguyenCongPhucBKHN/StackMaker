@@ -16,9 +16,11 @@ public class CONST
    public static string ANI_UNBRICK ="btnHuxi";
    public static string ANI_ADDBIRCK ="Take 04";
    public static string ANI_WIN = "Take 3";
-
+   public static string COLOR_UNBRICK ="_Color";
    public static string TEXT_SCORE= "SCORE: ";
    public static string TEXT_LEVEL= "LEVEL ";
+   public static string TAG_POSE_PLAYER ="PlayerPos";
+   public static string GO_LISTBRICK ="ListBrick";
 
 
 }
