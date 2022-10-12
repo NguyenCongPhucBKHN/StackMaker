@@ -10,8 +10,8 @@ public class UIManager : Singleton<UIManager>
     public Text level;
     
     private void Update() {
-        score.text ="SCORE: " + LevelManager.Instance.GetScore().ToString();
-        level.text = "LEVEL " + LevelManager.Instance.GetLevel().ToString();
+        score.text = CONST.TEXT_SCORE + LevelManager.Instance.GetScore().ToString();
+        level.text = CONST.TEXT_LEVEL + LevelManager.Instance.GetLevel().ToString();
     }
     public void OpenMainMenuUI()
     {
@@ -31,7 +31,7 @@ public class UIManager : Singleton<UIManager>
     }
     public void RePlayButton()
     {
-        LevelManager.Instance.LoadLevel(1);
+        LevelManager.Instance.LoadRePlayLevel();
         GameManager.Instance.ChangeState(EGameState.MainMenu);
         OpenMainMenuUI();
     }
