@@ -18,7 +18,7 @@ public class MovePlayer : MonoBehaviour
         player = GetComponent<Player>();
     }
     
-public Vector3 GetTargetPosition(EDirection direction)
+    public Vector3 GetTargetPosition(EDirection direction)
     {
        switch (direction) 
        {
@@ -54,7 +54,6 @@ public Vector3 GetTargetPosition(EDirection direction)
 
     public void MoveToTargetPosition(Vector3 target, float speed)
     {
-        // Player.position =  Vector3.MoveTowards(Player.position, target, 1f);
         Player.position =  Vector3.MoveTowards(Player.position, target, speed*Time.deltaTime<1? speed*Time.deltaTime:1);
     }
 
@@ -65,17 +64,11 @@ public Vector3 GetTargetPosition(EDirection direction)
         MoveToTargetPosition(pose, 50);
     }
 
-    void OnTriggerEnter(Collider other) {
-        if(other.CompareTag(CONST.TAG_WIN))
-        {
-            player.isWin= true;
-            player.eDirection = EDirection.None;
-
-        }
-    }
-
-
-
-
-
+    // void OnTriggerEnter(Collider other) {
+    //     if(other.CompareTag(CONST.TAG_WIN))
+    //     {
+    //         player.isWin= true;
+    //         player.eDirection = EDirection.None;
+    //     }
+    // }
 }

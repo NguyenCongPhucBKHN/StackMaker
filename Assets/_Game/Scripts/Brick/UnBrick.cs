@@ -6,6 +6,8 @@ public class UnBrick : MonoBehaviour
 {
     [SerializeField] Material UnBrickmaterial;
     [SerializeField] GameObject RenBrick;
+
+    Player player;
     GameObject ListBrick;
     Transform PlayerPos;
     GameObject buttomBrick;
@@ -16,6 +18,7 @@ public class UnBrick : MonoBehaviour
        PlayerPos = GameObject.FindGameObjectWithTag(CONST.TAG_POSE_PLAYER).transform;
        ListBrick = GameObject.Find(CONST.GO_LISTBRICK);
        collider = GetComponent<Collider>();
+       player = FindObjectOfType<Player>();
     }
     private void OnTriggerEnter(Collider other) 
     {
@@ -30,9 +33,11 @@ public class UnBrick : MonoBehaviour
             Destroy(buttomBrick);
             brickRender.transform.position += Vector3.up*0.3f;
             brickRender.material = UnBrickmaterial;
+            player.score++;
+            player.ani.Play(CONST.ANI_UNBRICK, 0, 0.5f);
         }
         PlayerPos.position = pos;
-        
+
     }
     private void OnTriggerExit(Collider other) {
         if(other.CompareTag(CONST.TAG_PLAYER))

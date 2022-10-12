@@ -21,6 +21,4 @@ public class CONST
    public static string TEXT_LEVEL= "LEVEL ";
    public static string TAG_POSE_PLAYER ="PlayerPos";
    public static string GO_LISTBRICK ="ListBrick";
-
-
 }

@@ -9,9 +9,9 @@ public class Player : MonoBehaviour
     [SerializeField] GameObject playerModel;
     [SerializeField] float speed;
     private MovePlayer movePlayer;
-    private BrickProcess brickProcess;
     private Vector3 dir;
-    private Animator ani;
+    public Animator ani;
+    // private BrickProcess brickProcess;
     public float score =0f;
     public bool isWin;
     public EDirection eDirection;
@@ -21,20 +21,20 @@ public class Player : MonoBehaviour
     private void Awake() 
     {
         movePlayer = GetComponent<MovePlayer>();
-        brickProcess = GetComponent<BrickProcess>();
         ani = playerModel.GetComponent<Animator>();
+        // brickProcess = GetComponent<BrickProcess>();
     }
 
     private void Start() 
     {
         OnInit();
     }
-    //Goi cac xu ly logic game
+    
     private void Update() 
     {
-        
         if(isPlay && !isWin) //Da an play va chua den dich
         {
+            MouseInput.Instance.Swipe();
             eDirection = MouseInput.Instance.GetEDirection(); //Get huong di chuyen tu mouse
             Vector3 target = movePlayer.GetTargetPosition(eDirection); //Tim diem dich can di chuyen den
             movePlayer.MoveToTargetPosition(target, speed); //Di chuyen den diem dich

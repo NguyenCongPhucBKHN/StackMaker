@@ -7,7 +7,11 @@ public class EndGame : MonoBehaviour
     private bool isDisplay;
     public GameObject win;
     public ParticleSystem[] particleSystems;
+    private Player player;
 
+    private void Awake() {
+        player = FindObjectOfType<Player>();
+    }
     void Update()
     {
         
@@ -30,6 +34,8 @@ public class EndGame : MonoBehaviour
         if(other.CompareTag(CONST.TAG_PLAYER))
         {
             isDisplay= true;
+            player.isWin = true;
+            player.eDirection = EDirection.None;
         }
     }
 

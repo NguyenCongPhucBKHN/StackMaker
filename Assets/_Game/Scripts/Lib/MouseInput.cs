@@ -10,9 +10,9 @@ public class MouseInput : Singleton<MouseInput>
     public EDirection eDirection;
     public bool isMove = false;
 
-    private void Update() {
-        Swipe();
-    }
+    // private void Update() {
+        // Swipe();
+    // }
     public void Swipe()
     {   
         
@@ -40,7 +40,6 @@ public class MouseInput : Singleton<MouseInput>
                     eDirection = EDirection.Backward;
                 
             }
-            //swipe left
             if (distance.x < 0 && distance.y > -0.5f && distance.y < 0.5f)
             {
                 eDirection = EDirection.Left;
