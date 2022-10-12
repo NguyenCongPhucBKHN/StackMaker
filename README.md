@@ -1,9 +1,8 @@
 # StackMaker
 Script bao gồm các class: 
 + Player
-+ PlayerMove
-+ BrickProcess
-+ UnbrickProcess
++ Brick
++ UnBrick
 + EndGame
 
 
@@ -13,22 +12,11 @@ Các Class Manager:
 + GameManager
 
 
-Class Player được gán vào Player, gọi đến 2 class PlayerMove và BrickProcess. 
-
-Class PlayerMove chứa các hàm:
-+ GetPositionTarget(): Tìm điểm cần di chuyển đến
-+ MoveToTargetPosition(): Di chuyển Player đến điểm đích
-
-Class BrickProcess chứa các hàm:
-+ IsBirck(): Kiểm tra vị trí hiện tại có phải BrickWall không
-+ IsUnBrick(): Kiểm tra vị trí hiện tại có phải UnBrickWall không
-+ AddBrick(): Thêm Brick vào chân Player
-+ RemoveBrick(): Loại bỏ Brick từ chân Player
-+ ClearBrick(): Xóa toàn bộ Brick từ chân Player
++ Class Player dùng để nhận điều khiển từ lớp MouseInput và các hàm trong class PlayerMove để di chuyển Player
++ Class Brick để Add Brick và chân Player
++ Class UnBrick để Remove Brick từ chân Player và xử lý dưới nền
++ Class EndGame để PX khi Player đến đích và set một số cờ.
 
 
-Class UnBrickProcess để xử lý vùng UnBrickWall khi Player đi qua, sẽ thay đổi nền hiện tại thành Brick:
 
-Class EndGame thực hiện Particle khi Player đến điểm đích
 
-Class GenerateMap đang được update để sinh ra map ngẫu nhiên
